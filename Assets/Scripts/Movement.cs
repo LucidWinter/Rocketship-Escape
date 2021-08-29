@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
 {
 
     Rigidbody rb;
+    AudioSource audioSource;
     [SerializeField] float thrustSpeed = 500f;
     [SerializeField] float rotationSpeed = 100f;
 
@@ -14,6 +15,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,13 @@ public class Movement : MonoBehaviour
     void UserThrust(){
        if(Input.GetKey(KeyCode.Space)){
            rb.AddRelativeForce(Vector3.up * Time.deltaTime * thrustSpeed);
+           if(!audioSource.isPlaying){ 
+              audioSource.Play();
+           }
+        }
+
+       else{
+            audioSource.Stop();
         }
     }
 
